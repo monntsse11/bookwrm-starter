@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.4.4'
+ruby '2.6.5'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 # gem 'coffee-rails', '~> 4.2'
@@ -12,7 +12,7 @@ gem 'faker'
 gem 'figaro'
 gem 'jbuilder', '~> 2.5'
 gem 'neat', '~> 1.7.4'
-gem 'pg'
+gem 'pg', '>=0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.1'
 gem 'sass-rails', '~> 5.0'
