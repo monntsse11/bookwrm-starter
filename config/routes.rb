@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
-  resources :books
-	root to: 'authors#index'
-  resources :authors
+  root to: 'books#index'
+
   devise_for :users
-  resources :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  authenticated :user do
+    root to: 'books#index', as: :authenticated_root
+  end
+
+  resources :authors
+  
+  resources :books do
+    resources :reviews
+  end
 end

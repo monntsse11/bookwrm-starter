@@ -42,7 +42,7 @@
   </div>
 
   <div class="field">
-    <%= form.label :authorreference %>
+    <%= form.label :author_id %>
     <%= form.select :author_id, options: Author.all.map { |author| ["#{author.first_name} #{author.last_name}", author.id] } %>
   </div>
 

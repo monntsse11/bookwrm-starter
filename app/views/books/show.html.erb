@@ -1,39 +1,52 @@
-<p id="notice"><%= notice %></p>
+<section class="book-wrapper">
+  <div class="book-block-container">
+    <% if @book.image_url %>
+      <%= image_tag  @book.image_url %>
+    <% end %>
+    <div class="text-block">
+      <br>
 
-<p>
-  <strong>Title:</strong>
-  <%= @book.title %>
-</p>
+      <br>
 
-<p>
-  <strong>Summanry:</strong>
-  <%= @book.summanry %>
-</p>
+      <h1><%= @book.title %></h1>
+      <h6><%= link_to @book.author.full_name, author_path(@book.author) %></h6>
+      <br>
 
-<p>
-  <strong>Genre:</strong>
-  <%= @book.genre %>
-</p>
+      <br>
+      <p><%= @book.summanry %></p>
+      <% if current_user.present? %>
+        <%= link_to "Write a review", new_book_review_path(@book), class: 'button-primary' %>
+        <%= link_to 'Edit', edit_book_path(@book) %>
+      <% end %>
+    </div>
+  </div>
+</section>
 
-<p>
-  <strong>Publish date:</strong>
-  <%= @book.publish_date %>
-</p>
-
-<p>
-  <strong>Num pages:</strong>
-  <%= @book.num_pages %>
-</p>
-
-<p>
-  <strong>Image url:</strong>
-  <%= @book.image_url %>
-</p>
-
-<p>
-  <strong>Authorreference:</strong>
-  <%= @book.authorreference %>
-</p>
-
-<%= link_to 'Edit', edit_book_path(@book) %> |
-<%= link_to 'Back', books_path %>
+<section>
+  <div class="reviews-block-container">
+    <h3>Reviews (<%= @book.reviews.size %>)</h3>
+    <div class="reviews">
+      <% @book.reviews.each do |review| %>
+        <div class="review">
+          <div class="user-initials">
+            <%= review.user.initials %>
+          </div>
+          <div class="text-block">
+            <div class="user-name">
+              <strong><%= review.user.full_name %></strong>
+            </div>
+            <div class="rating-stars">
+              <%= image_tag("#{review.rating}-stars.svg") %>
+              <div class="timestamp">
+                <%= format_date(review.created_at) %>
+              </div>
+            </div>
+          </div>
+          <div class="description">
+            <%= review.description %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
