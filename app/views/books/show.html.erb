@@ -4,6 +4,15 @@
       <%= image_tag  @book.image_url %>
     <% end %>
     <div class="text-block">
+      <div class="favorites">
+        <% if current_user.present? %>
+          <% if current_user.favorited_book?(@book) %>
+            <%= link_to '', book_favorite_path(@book, @user_favorite), method: :delete %>
+          <% else %>
+            <%= link_to '', book_favorites_path(@book), method: :post %>
+          <% end %>
+        <% end %>
+      </div>
       <br>
 
       <br>

@@ -8,8 +8,9 @@ Rails.application.routes.draw do
   end
 
   resources :authors
-  
+
   resources :books do
     resources :reviews
+    resources :favorites
   end
 end

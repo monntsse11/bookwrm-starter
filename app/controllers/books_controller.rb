@@ -1,15 +1,17 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
+
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all
+    @books = Book.alphabetical
   end
 
   # GET /books/1
   # GET /books/1.json
   def show
+    @user_favorite = current_user.present? ? current_user.favorites.for_book(@book) : nil
   end
 
   # GET /books/new
@@ -62,13 +64,14 @@ class BooksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_book
-      @book = Book.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def book_params
-      params.require(:book).permit(:title, :summanry, :genre, :publish_date, :num_pages, :image_url, :author_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_book
+    @book = Book.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def book_params
+    params.require(:book).permit(:author_id, :title, :summary, :isbn, :genre, :publish_date, :num_pages, :image_url)
+  end
 end
